@@ -6355,6 +6355,7 @@ function run() {
                 files: core.getInput('include'),
                 from: core.getInput('search'),
                 to: core.getInput('replace'),
+                countMatches: true,
             };
             core.debug(`options: $JSON.stringify(options)`);
             const results = yield (0, searchReplace_1.searchReplace)(options);

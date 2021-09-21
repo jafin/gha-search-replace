@@ -6,6 +6,7 @@ async function run(): Promise<void> {
       files: core.getInput('include'),
       from: core.getInput('search'),
       to: core.getInput('replace'),
+      countMatches: true,
     };
 
     core.debug(`options: $JSON.stringify(options)`);
