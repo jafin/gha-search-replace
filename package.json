@@ -2,16 +2,16 @@
  "name": "gh-search-replace",
  "version": "0.0.1",
  "description": "",
- "main": "lib/index.js",
+ "main": "src/index.ts",
  "scripts": {
   "format": "prettier --write **/*.ts",
   "format-check": "prettier --check **/*.ts",
-  "build": "rimraf ./build && tsc",
+  "_build": "rimraf ./build && tsc",
   "lint": "eslint src/**/*.ts",
   "package": "ncc build --source-map --license licenses.txt",
   "start": "npm run build",
   "test": "jest",
-  "all": "npm run build && npm run format && npm run lint && npm run package && npm test"
+  "all": "npm run format && npm run lint && npm run package && npm test"
  },
  "devDependencies": {
   "@actions/core": "^1.5.0",
