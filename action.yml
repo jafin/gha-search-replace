@@ -1,0 +1,24 @@
+name: "Search and Replace"
+description: "Search and replace strings in files"
+author: "Jason Finch"
+inputs:
+  include:
+    description: "Files to include"
+    default: .*
+    required: false
+  exclude:
+    description: "Files to exclude (not implemented)"
+    default: .*
+    required: false
+  find:
+    description: "String to replace"
+    required: true
+  replace:
+    description: "Replacement string"
+    required: true
+outputs:
+  modifiedFiles:
+    description: "The list of files modified"
+runs:
+  using: "node12"
+  main: "index.js"

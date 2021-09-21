@@ -1,0 +1,7 @@
+Start
+item_to_replace on a line
+
+#multiple
+item_to_replace
+
+The End
