@@ -6,8 +6,8 @@ inputs:
     description: "Files to include (supports glob patterns)"
     default: '**/*'
     required: false
-  find:
-    description: "String to replace (or regex match)"
+  search:
+    description: "String to search (or regex match)"
     required: true
   replace:
     description: "Replacement string"

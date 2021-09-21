@@ -4,8 +4,8 @@ async function run(): Promise<void> {
   try {
     const options = {
       files: core.getInput('include'),
-      from: core.getInput('from'),
-      to: core.getInput('to'),
+      from: core.getInput('search'),
+      to: core.getInput('replace'),
     };
 
     core.debug(`options: $JSON.stringify(options)`);
