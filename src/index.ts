@@ -10,7 +10,7 @@ async function run(): Promise<void> {
 
     core.debug(`options: $JSON.stringify(options)`);
 
-    const results = searchReplace(options);
+    const results = await searchReplace(options);
     core.setOutput('modifiedFiles', results);
   } catch (error: unknown) {
     const err = error as Error;

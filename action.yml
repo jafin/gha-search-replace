@@ -8,7 +8,6 @@ inputs:
     required: false
   exclude:
     description: "Files to exclude (not implemented)"
-    default: .*
     required: false
   find:
     description: "String to replace"
