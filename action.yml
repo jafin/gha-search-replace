@@ -3,11 +3,11 @@ description: "Search and replace strings in files"
 author: "Jason Finch"
 inputs:
   include:
-    description: "Files to include"
-    default: .*
+    description: "Files to include (supports glob patterns)"
+    default: '**/*'
     required: false
   find:
-    description: "String to replace"
+    description: "String to replace (or regex match)"
     required: true
   replace:
     description: "Replacement string"
@@ -18,3 +18,6 @@ outputs:
 runs:
   using: "node12"
   main: "dist/index.js"
+branding:
+  color: 'blue'
+  icon: 'search'
