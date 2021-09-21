@@ -11,3 +11,9 @@ with:
   find: 'blah'
   replace: 'blahx'
 ```
+
+## Debugging
+
+Set a Action Secret in your repository See [here](https://github.com/actions/toolkit/blob/master/docs/action-debugging.md) for further info.
+
+Set the secret `ACTIONS_STEP_DEBUG` to `true`
