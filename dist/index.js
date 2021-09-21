@@ -5645,6 +5645,43 @@ module.exports.win32 = win32;
 
 /***/ }),
 
+/***/ 542:
+/***/ ((module) => {
+
+"use strict";
+
+
+/**
+ * RegexParser
+ * Parses a string input.
+ *
+ * @name RegexParser
+ * @function
+ * @param {String} input The string input that should be parsed as regular
+ * expression.
+ * @return {RegExp} The parsed regular expression.
+ */
+var RegexParser = module.exports = function (input) {
+
+    // Validate input
+    if (typeof input !== "string") {
+        throw new Error("Invalid input. Input must be a string");
+    }
+
+    // Parse input
+    var m = input.match(/(\/?)(.+)\1([a-z]*)/i);
+
+    // Invalid flags
+    if (m[3] && !/^(?!.*?(.).*?\1)[gmixXsuUAJ]+$/.test(m[3])) {
+        return RegExp(input);
+    }
+
+    // Create the regular expression
+    return new RegExp(m[2], m[3]);
+};
+
+/***/ }),
+
 /***/ 983:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
@@ -6351,14 +6388,13 @@ const searchReplace_1 = __nccwpck_require__(826);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const options = {
+            const inputs = {
                 files: core.getInput('include'),
                 from: core.getInput('search'),
                 to: core.getInput('replace'),
-                countMatches: true,
             };
             core.debug(`options: $JSON.stringify(options)`);
-            const results = yield (0, searchReplace_1.searchReplace)(options);
+            const results = yield (0, searchReplace_1.searchReplace)(inputs);
             core.setOutput('modifiedFiles', results);
             let filesChanged = 0;
             for (const result of results) {
@@ -6386,6 +6422,51 @@ run();
 
 /***/ }),
 
+/***/ 412:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.hasJsonStructure = exports.parseJSON = exports.reviver = exports.replacer = void 0;
+function replacer(key, value) {
+    if (value instanceof RegExp)
+        return `__REGEXP ${value.toString()}`;
+    else
+        return value;
+}
+exports.replacer = replacer;
+function reviver(key, value) {
+    if (value.toString().startsWith('__REGEXP ')) {
+        const m = value.split('__REGEXP ')[1].match(/\/(.*)\/(.*)?/);
+        if (m !== null)
+            return new RegExp(m[1], m[2] || '');
+    }
+    else
+        return value;
+}
+exports.reviver = reviver;
+function hasJsonStructure(str) {
+    if (typeof str !== 'string')
+        return false;
+    try {
+        const result = JSON.parse(str);
+        const type = Object.prototype.toString.call(result);
+        return type === '[object Object]' || type === '[object Array]';
+    }
+    catch (err) {
+        return false;
+    }
+}
+exports.hasJsonStructure = hasJsonStructure;
+function parseJSON(json) {
+    return JSON.parse(json, reviver);
+}
+exports.parseJSON = parseJSON;
+
+
+/***/ }),
+
 /***/ 826:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -6404,13 +6485,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.searchReplace = void 0;
+exports.parseInputs = exports.searchReplace = void 0;
 // eslint-disable-next-line filenames/match-regex
+const parser_1 = __nccwpck_require__(412);
 const replace_in_file_1 = __importDefault(__nccwpck_require__(983));
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const searchReplace = (options) => __awaiter(void 0, void 0, void 0, function* () {
-    const results = yield replace_in_file_1.default.replaceInFile(options);
-    return results;
+const regex_parser_1 = __importDefault(__nccwpck_require__(542));
+const parseInputs = (inputs) => {
+    const config = Object.assign(Object.assign({}, inputs), { countMatches: true });
+    if ((0, parser_1.hasJsonStructure)(inputs.from)) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const obj = (0, parser_1.parseJSON)(inputs.from);
+        const key = Object.keys(obj)[0];
+        if (obj[key] instanceof RegExp) {
+            config.from = obj[key];
+        }
+    }
+    if (inputs.fromType && inputs.fromType === 'regexp') {
+        config.from = (0, regex_parser_1.default)(inputs.from);
+    }
+    return config;
+};
+exports.parseInputs = parseInputs;
+const searchReplace = (config) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield replace_in_file_1.default.replaceInFile(config);
 });
 exports.searchReplace = searchReplace;
 

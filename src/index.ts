@@ -1,17 +1,18 @@
 import * as core from '@actions/core';
+import {Inputs} from './inputs';
 import {searchReplace} from './searchReplace';
+
 async function run(): Promise<void> {
   try {
-    const options = {
+    const inputs: Inputs = {
       files: core.getInput('include'),
       from: core.getInput('search'),
       to: core.getInput('replace'),
-      countMatches: true,
     };
 
     core.debug(`options: $JSON.stringify(options)`);
 
-    const results = await searchReplace(options);
+    const results = await searchReplace(inputs);
     core.setOutput('modifiedFiles', results);
 
     let filesChanged = 0;
