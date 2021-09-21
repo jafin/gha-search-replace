@@ -1,4 +1,4 @@
-# readme
+# Github Action to search and replace text
 
 ## Validate action
 
