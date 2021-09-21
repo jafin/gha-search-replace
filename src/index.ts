@@ -3,7 +3,7 @@ import {searchReplace} from './searchReplace';
 async function run(): Promise<void> {
   try {
     const options = {
-      files: core.getInput('files'),
+      files: core.getInput('include'),
       from: core.getInput('from'),
       to: core.getInput('to'),
     };

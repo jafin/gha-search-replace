@@ -6,9 +6,6 @@ inputs:
     description: "Files to include"
     default: .*
     required: false
-  exclude:
-    description: "Files to exclude (not implemented)"
-    required: false
   find:
     description: "String to replace"
     required: true

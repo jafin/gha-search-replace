@@ -6352,7 +6352,7 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const options = {
-                files: core.getInput('files'),
+                files: core.getInput('include'),
                 from: core.getInput('from'),
                 to: core.getInput('to'),
             };
@@ -6395,7 +6395,6 @@ const replace_in_file_1 = __importDefault(__nccwpck_require__(983));
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const searchReplace = (options) => __awaiter(void 0, void 0, void 0, function* () {
     const results = yield replace_in_file_1.default.replaceInFile(options);
-    //console.log('Replacement results:', results);
     return results;
 });
 exports.searchReplace = searchReplace;
