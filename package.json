@@ -2,7 +2,7 @@
  "name": "gh-search-replace",
  "version": "0.0.1",
  "description": "",
- "main": "lib/index.js",
+ "main": "lib/main.js",
  "scripts": {
   "format": "prettier --write **/*.ts",
   "format-check": "prettier --check **/*.ts",
