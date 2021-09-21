@@ -9,7 +9,6 @@ async function run(): Promise<void> {
     };
 
     core.debug(`options: $JSON.stringify(options)`);
-    core.info;
 
     const results = await searchReplace(options);
     core.setOutput('modifiedFiles', results);
