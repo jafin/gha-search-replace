@@ -21,6 +21,6 @@ jobs:
       - uses: actions/checkout@v2
       - uses: ./
         with:
-          include: '.*'
+          include: '**/*.txt'
           find: 'item_to_replace'
           replace: 'ive_been_replaced'
