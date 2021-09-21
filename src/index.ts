@@ -18,9 +18,15 @@ async function run(): Promise<void> {
     for (const result of results) {
       if (result.hasChanged) {
         filesChanged++;
-        core.info(
-          `File: ${result.file} was modified ${result.numReplacements} times`,
-        );
+        if (result.numReplacements && result.numReplacements > 1) {
+          core.info(
+            `File: ${result.file} had ${result.numReplacements} matches.`,
+          );
+        } else {
+          core.info(
+            `File: ${result.file} had ${result.numReplacements} match.`,
+          );
+        }
       }
     }
     // eslint-disable-next-line i18n-text/no-en
