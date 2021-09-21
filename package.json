@@ -2,14 +2,16 @@
  "name": "gh-search-replace",
  "version": "0.0.1",
  "description": "",
- "main": "index.js",
+ "main": "lib/index.js",
  "scripts": {
-  "test": "echo \"Error: no test specified\" && exit 1",
-  "start:dev": "nodemon",
-  "debug": "nodemon --inspect ./build",
+  "format": "prettier --write **/*.ts",
+  "format-check": "prettier --check **/*.ts",
   "build": "rimraf ./build && tsc",
-  "pack": "npm run build && webpack",
-  "start": "npm run build"
+  "lint": "eslint src/**/*.ts",
+  "package": "ncc build --source-map --license licenses.txt",
+  "start": "npm run build",
+  "test": "jest",
+  "all": "npm run build && npm run format && npm run lint && npm run package && npm test"
  },
  "devDependencies": {
   "@actions/core": "^1.5.0",
@@ -20,6 +22,7 @@
   "@vercel/ncc": "^0.31.1",
   "eslint-plugin-github": "^4.3.0",
   "eslint-plugin-jest": "^24.4.2",
+  "eslint-plugin-node": "^11.1.0",
   "jest": "^27.2.1",
   "js-yaml": "^4.1.0",
   "nodemon": "^2.0.12",

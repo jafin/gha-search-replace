@@ -12,7 +12,7 @@ async function run(): Promise<void> {
 
     const results = searchReplace(options);
     core.setOutput('modifiedFiles', results);
-  } catch (error: any) {
+  } catch (error: unknown) {
     const err = error as Error;
     core.setFailed(err.message);
   }
