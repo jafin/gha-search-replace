@@ -1,6 +1,6 @@
 import * as core from '@actions/core';
+import {parseInputs, searchReplace} from './searchReplace';
 import {Inputs} from './inputs';
-import {searchReplace} from './searchReplace';
 
 async function run(): Promise<void> {
   try {
@@ -10,9 +10,9 @@ async function run(): Promise<void> {
       to: core.getInput('replace'),
     };
 
-    core.debug(`options: $JSON.stringify(options)`);
-
-    const results = await searchReplace(inputs);
+    const config = parseInputs(inputs);
+    core.debug(`config: ${JSON.stringify(config)}`);
+    const results = await searchReplace(config);
     core.setOutput('modifiedFiles', results);
 
     let filesChanged = 0;

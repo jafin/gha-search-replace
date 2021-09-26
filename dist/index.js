@@ -6393,8 +6393,9 @@ function run() {
                 from: core.getInput('search'),
                 to: core.getInput('replace'),
             };
-            core.debug(`options: $JSON.stringify(options)`);
-            const results = yield (0, searchReplace_1.searchReplace)(inputs);
+            const config = (0, searchReplace_1.parseInputs)(inputs);
+            core.debug(`config: ${JSON.stringify(config)}`);
+            const results = yield (0, searchReplace_1.searchReplace)(config);
             core.setOutput('modifiedFiles', results);
             let filesChanged = 0;
             for (const result of results) {
