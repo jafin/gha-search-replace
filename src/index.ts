@@ -21,11 +21,11 @@ async function run(): Promise<void> {
         filesChanged++;
         if (result.numReplacements && result.numReplacements > 1) {
           core.info(
-            `File: ${result.file} had ${result.numReplacements} matches.`,
+            `File: ${result.file} had ${result.numMatches} matches & ${result.numReplacements} replacements.`,
           );
         } else {
           core.info(
-            `File: ${result.file} had ${result.numReplacements} match.`,
+            `File: ${result.file} had ${result.numMatches} matches & ${result.numReplacements} replacements.`,
           );
         }
       }
