@@ -8,8 +8,8 @@ Validate the action by referencing ./ in a workflow in your repo
 uses: ./
 with:
   include: *.txt
-  find: 'blah'
-  replace: 'blahx'
+  search: 'foo'
+  replace: 'bah'
 ```
 
 ## Debugging
