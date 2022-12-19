@@ -1,4 +1,3 @@
-// eslint-disable-next-line filenames/match-regex
 import {hasJsonStructure, parseJSON} from './parser';
 import replace, {ReplaceInFileConfig, ReplaceResult} from 'replace-in-file';
 import {Inputs} from './inputs';
